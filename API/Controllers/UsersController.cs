@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
 
+    [Authorize]
     public class UsersController : BaseApiController
     {
         DataContext _context;
@@ -26,5 +27,7 @@ namespace API.Controllers
         {
             return _context.AppUsers.ToList();
         }
+
+        
     }
 }
