@@ -1,0 +1,18 @@
+<section class="jumbotron text-center" *ngIf="!registerMode">
+  <div class="container">
+    <h1 class="jumbotron-heading">Find your match!</h1>
+    <p class="lead text-muted">
+      Come on into view your matches... call you need to do is sign up!
+    </p>
+    <p>
+      <a href="#" class="btn btn-primary my-2" (click)="toggleRegisterMode()"
+        >Register</a
+      >
+      <a href="#" class="btn btn-secondary my-2 ml-1">Learn More</a>
+    </p>
+  </div>
+</section>
+
+<div class="text-center mt-3" *ngIf="registerMode">
+  <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+</div>

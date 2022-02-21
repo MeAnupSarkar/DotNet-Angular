@@ -10,4 +10,10 @@ namespace API.Entities.DTO
         public string username { get; set; }
         public string password { get; set; }
     }
+
+    public class RegisterDto
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
 }

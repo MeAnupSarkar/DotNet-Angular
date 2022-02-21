@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers
 {
 
-    [Authorize]
+    // [Authorize]
     public class UsersController : BaseApiController
     {
         DataContext _context;

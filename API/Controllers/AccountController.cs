@@ -27,18 +27,18 @@ namespace API.Controllers
 
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(string UserName, string password)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             using var hmac = new HMACSHA512();
 
-            if (_context.AppUsers.Any(s => s.UserName.ToLower() == UserName.ToLower()))
+            if (_context.AppUsers.Any(s => s.UserName.ToLower() == registerDto.username.ToLower()))
             {
                 return BadRequest("User already exists!");
             }
             var user = new AppUser
             {
-                UserName = UserName,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                UserName = registerDto.username,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password)),
                 PasswordSalt = hmac.Key
             };
 

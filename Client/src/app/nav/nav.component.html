@@ -21,7 +21,7 @@
       </li>
     </ul>
 
-    <div class="btn-group" dropdown *ngIf="isLoggedIn">
+    <div class="btn-group" dropdown *ngIf="accountService.currentUser$ | async">
       <button
         id="button-basic"
         dropdownToggle
@@ -29,7 +29,7 @@
         class="btn btn-primary dropdown-toggle"
         aria-controls="dropdown-basic"
       >
-        Welcome {{ model.username }}! <span class="caret"></span>
+        Welcome {{ user.username }}! <span class="caret"></span>
       </button>
       <ul
         id="dropdown-basic"
@@ -46,7 +46,7 @@
     </div>
 
     <form
-      *ngIf="!isLoggedIn"
+      *ngIf="(accountService.currentUser$ | async) === null"
       #loginForm="ngForm"
       class="form-inline my-2 my-lg-0"
       autocomplete="off"
@@ -68,7 +68,7 @@
         placeholder="Password"
         aria-label="password"
       />
-      <button class="btn btn-info my-2 my-sm-0" type="submit">Login</button>
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
     </form>
   </div>
 </nav>
