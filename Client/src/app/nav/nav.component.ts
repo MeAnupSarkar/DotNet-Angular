@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from './../_service/account.service';
 import { User } from '../_modules/User';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -14,8 +17,13 @@ export class NavComponent implements OnInit {
   user: User = { username: 'User', token: '' };
   isLoggedIn: boolean = false;
   //currentUser$: Observable<User>;
+  faUserCircle = faUserCircle;
 
-  constructor(public accountService: AccountService) {}
+  constructor(
+    public accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     //this.getCurrentUser();
@@ -27,20 +35,21 @@ export class NavComponent implements OnInit {
     this.accountService.loginTask(this.model).subscribe(
       (response) => {
         console.log(response);
-        // this.isLoggedIn = true;
-        this.user = {
-          username: this.model.username,
-        } as User;
+        this.router.navigateByUrl('/members');
+        this.toastr.success('Login Successfull!');
       },
       (error) => {
         console.log(error);
-        alert(error.error);
+        //  alert(error.error);
+        this.toastr.error(error.error);
       }
     );
   }
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
+    this.toastr.warning('Logout !');
     // this.isLoggedIn = false;
   }
 
